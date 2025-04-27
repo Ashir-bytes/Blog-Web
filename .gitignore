@@ -1,0 +1,57 @@
+# Node modules
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Log files
+*.log
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# npm package-lock
+package-lock.json
+
+# Yarn lock
+yarn.lock
+
+# VSCode settings
+.vscode/
+
+# MacOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# React Native
+.expo/
+.expo-shared/
+
+# Ignore test coverage and temporary files
+coverage/
+*.tgz
+*.bak
+*.swp
+*.swo
+
+# Logs
+*.log

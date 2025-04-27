@@ -1,0 +1,112 @@
+/* Post Page Container */
+.post-page-container {
+    background-color: #f4f7fb;
+    padding: 40px;
+    max-width: 900px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .post-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .post-meta {
+    font-size: 16px;
+    color: #7f8c8d;
+  }
+  
+  .post-meta .author {
+    font-weight: 600;
+  }
+  
+  .post-meta .date {
+    font-weight: 400;
+  }
+  
+  /* Post Content */
+  .post-content {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 40px;
+  }
+  
+  .post-content p {
+    margin-bottom: 20px;
+  }
+  
+  /* Comment Section */
+  .comment-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-section h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .comment-input {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .comment-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+  }
+  
+  .comment-button {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .comment-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .post-page-container {
+      padding: 20px;
+    }
+  
+    .post-title {
+      font-size: 28px;
+    }
+  
+    .post-content {
+      font-size: 16px;
+    }
+  }
+  

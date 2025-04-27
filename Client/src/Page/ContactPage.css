@@ -1,0 +1,112 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+  }
+  
+  /* Contact Page Container */
+  .contact-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fb;
+  }
+  
+  .contact-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Title Styling */
+  .contact-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form Styling */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-field,
+  .message-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .input-field:focus,
+  .message-field:focus {
+    border-color: #3498db;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+  }
+  
+  .message-field {
+    height: 150px;
+    resize: none;
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    padding: 15px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Thank You Message */
+  .thank-you-message {
+    font-size: 18px;
+    color: #2ecc71;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact-card {
+      padding: 20px;
+    }
+  
+    .contact-title {
+      font-size: 24px;
+    }
+  }
+  
