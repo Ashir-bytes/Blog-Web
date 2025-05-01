@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";  // Importing the user icon
 import "./Navbar.css";
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,6 @@ const Navbar = () => {
         </Link>
 
         {/* Sign Up and Login links */}
-        
         <Link to="/login" className="navbar-link">
           Login
         </Link>
@@ -50,6 +49,13 @@ const Navbar = () => {
             onChange={handleSearchChange}
             className="search-bar"
           />
+        </div>
+
+        {/* User Icon */}
+        <div className="user-icon">
+          <Link to="/profile">
+            <FaUserCircle size={30} />
+          </Link>
         </div>
       </div>
 

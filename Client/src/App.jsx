@@ -12,6 +12,8 @@ import ContactPage from "./Page/ContactPage"
 import SinglePage from "./Page/SinglePage"
 import Login from "./Page/Login"
 import "./index.css"
+import Signup from "./Page/SignUp"
+import UserProfile from "./Page/Userprofile"
 
 
 
@@ -31,6 +33,8 @@ function App() {
           <Route path="/posts" element={<BlogPage />} />
           <Route path="/post/:id" element={<SinglePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/profile" element={<UserProfile />} />
          
         </Routes>
       </Router>

@@ -1,39 +1,50 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import './Login.css';
+import './Signup.css';
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     setErrorMessage('');
-    if (!email || !password) {
-      setErrorMessage('Both email and password are required');
+    setSuccessMessage('');
+  
+    // Validate form fields
+    if (!email || !password || !username) {
+      setErrorMessage('All fields are required');
       return;
     }
+  
     try {
-      const res = await fetch('http://localhost:3000/api/users/login', {
+      const res = await fetch('http://localhost:3000/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, email, password }),
       });
+  
       const data = await res.json();
+  
       if (res.ok) {
-        setSuccessMessage('Login successful!');
-        setErrorMessage('');
+        setSuccessMessage('Registration successful!');
+        localStorage.setItem('token', data.token);  // Assuming the backend sends the token
+        setEmail('');
+        setPassword('');
+        setusername('');
       } else {
-        setErrorMessage(data.message || 'Login failed');
+        setErrorMessage(data.message || 'Registration failed');
       }
-    } catch {
+    } catch (err) {
       setErrorMessage('Network error, please try again');
+      console.error('Error:', err);
     }
   };
+  
 
   return (
     <div className="login-container">
@@ -48,29 +59,42 @@ const Login = () => {
 
         <div className="field">
           <input
+            type="text"
+            value={username}
+            name="username"
+            onChange={(e) => setusername(e.target.value)}
+            placeholder="Uername"
+          />
+        </div>
+
+        <div className="field">
+          <input
             type="email"
             value={email}
-            name='email'
-            onChange={e => setEmail(e.target.value)}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
         </div>
+
+        
 
         <div className="field password-field">
           <input
             type={showPass ? 'text' : 'password'}
             value={password}
-            name='password'
-            onChange={e => setPassword(e.target.value)}
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
           <span
             className="toggle-pass"
-            onClick={() => setShowPass(v => !v)}
+            onClick={() => setShowPass((v) => !v)}
           >
             {showPass ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+        
 
         <button type="submit" className="btn">
           Login
@@ -80,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

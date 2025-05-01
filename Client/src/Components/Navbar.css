@@ -43,8 +43,10 @@
   background-color: #1f2937;
   color: #f9fafb;
   padding: 10px 30px;
-  text-decoration: none; /* <-- Add this */
+  text-decoration: none;
+  /* <-- Add this */
 }
+
 .search-container {
   margin-left: 1rem;
 }
@@ -101,6 +103,26 @@
   background-color: #f9fafb;
   border-radius: 3px;
   transition: all 0.3s ease;
+}
+
+
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  /* Adjust the space as needed */
+}
+
+.user-icon a {
+  color: #333;
+  /* Set the icon color */
+  text-decoration: none;
+}
+
+.user-icon a:hover {
+  color: #007bff;
+  /* Change color on hover */
 }
 
 /* Mobile Responsive */

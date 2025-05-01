@@ -4,8 +4,8 @@ const cors = require('cors');
 const db = require('./config/data.js');
 const rankedRouter  = require('./Routers/ranked.js');
 const commentsRouter = require('./Routers/comments.js');
-
-
+const userRoutes = require('./Routers/users.js');
+require('dotenv').config();
 const app = express();
 app.use(cors());
 const port = 3000;
@@ -38,7 +38,8 @@ app.get('/api/posts', (req, res) => {
 app.use('/api/posts/ranked', rankedRouter);
 // Use the comments router for handling comments
 app.use('/api/posts', commentsRouter);
-
+//  User authentication routes
+app.use('/api/users', userRoutes);
 // Middleware to parse JSON bodies
 
 // Start the server
