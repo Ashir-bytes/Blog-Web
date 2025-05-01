@@ -1,84 +1,98 @@
-# Blog Web Application
+# 📖 MyBlog
 
-This is a simple blog web application built using React and Express.js. It allows users to browse blog posts, view individual posts, and perform user authentication (Sign Up and Login).
+A simple and clean blog web app built with **React**, **Express.js**, **MySQL**, and **JWT Authentication**. Allows users to register, log in, manage their profile, and contact the site owner.
 
-## Features
+---
 
-- **Home Page**: Displays a list of all blog posts.
-- **Post Detail Page**: Displays the details of a single post when clicked.
-- **Sign Up**: Users can create a new account by providing their email and password.
-- **Login**: Users can log in with their email and password.
-- **Responsive Design**: The app is designed to be responsive and mobile-friendly.
+## 📦 Features
 
-## Technologies Used
+- User registration and login
+- Password encryption with bcrypt
+- JWT-based authentication and protected routes
+- User profile page with token-based data fetching
+- Contact form with thank-you message display
+- MySQL database integration
+- Responsive navigation with React Router
+- Clean, modern UI styling
 
-- **Frontend**: React, React Router, CSS (for styling)
-- **Backend**: Express.js, Node.js
-- **Database**: (Add your database details here if applicable, e.g., MongoDB, MySQL, etc.)
+---
 
-## Setup Instructions
+## 🛠️ Tech Stack
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    ```
+- **Frontend:** React, React Router, CSS
+- **Backend:** Express.js, Node.js
+- **Database:** MySQL
+- **Authentication:** JWT, bcryptjs
+- **CORS Handling**
 
-2. Install dependencies for the frontend:
-    ```bash
-    cd client
-    npm install
-    ```
+---
 
-3. Install dependencies for the backend:
-    ```bash
-    cd server
-    npm install
-    ```
+## 📂 Project Structure
 
-4. Configure the `.env` file (if necessary) with your database credentials and other environment variables.
 
-5. Run the backend server:
-    ```bash
-    cd server
-    npm start
-    ```
 
-6. Run the frontend:
-    ```bash
-    cd client
-    npm start
-    ```
+---
 
-7. Open the app in your browser at `http://localhost:3000`.
+## 📑 API Endpoints
 
-## Folder Structure
+### 🔐 Authentication
 
-## Contributing
+- `POST /api/users/register` — Register a new user
+- `POST /api/users/login` — Login and receive JWT token
+- `GET /api/users/me` — Get user profile (requires Bearer token)
 
-Feel free to fork the repository, make changes, and submit a pull request. We welcome contributions!
+### 📩 Contact
 
-## License
+- `POST /api/contact` — Submit a contact message
 
-This project is licensed under the MIT License - 
+---
 
+## 💾 Database Tables
+
+### `users`
+
+```sql
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(255),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+cd backend
+npm install
+
+cd frontend
+npm install
+
+
+### 📌 Set up MySQL Database
+Create a database myblog
+
+Run the provided SQL table creation scripts above.
+
+Update your /backend/config/data.js with your database credentials.
+
+
+### 📌 Run Project
+node server.js
+npm start
+
+
+📃 License
 MIT License
 
-Copyright (c) [2025] [M.ashir hasnain]
+Copyright (c) 2025 Ashir
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+✨ Author
+Ashir
+🗓️ Project Date: May 1, 2025
+
