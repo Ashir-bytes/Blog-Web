@@ -20,6 +20,12 @@ const SinglePage = () => {
     hour12: false
   };
 
+  // Run once when component mounts / id changes
+  useEffect(() => {
+    fetchPost();
+    fetchComments();
+  }, [id]);
+
   // Move fetchPost function to top-level inside SinglePage component
   const fetchPost = async () => {
     try {
@@ -73,12 +79,8 @@ const SinglePage = () => {
   };
 
 
-  // Run once when component mounts / id changes
-  useEffect(() => {
-    fetchPost();
-    fetchComments();
-  }, [id]);
- 
+
+
 
 
 
