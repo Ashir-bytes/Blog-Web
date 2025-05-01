@@ -1,87 +1,106 @@
 .single-post-page {
-  background: #1e293b;
-  padding: 2rem;
-  color: #f9fafb;
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
 }
 
 .post-header {
   text-align: center;
   margin-bottom: 2rem;
+  color: wheat;
 }
 
 .post-image {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.post-header h1 {
-  font-size: 2.5rem;
-  margin-top: 1.5rem;
-  color: #f9fafb;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 .post-meta {
-  font-size: 1rem;
-  color: #94a3b8;
-  margin-top: 0.5rem;
-}
-
-.author {
-  font-weight: bold;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
 }
 
 .overview {
-  font-size: 1.2rem;
-  margin: 1.5rem 0;
-  color: #cbd5e1;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.like-dislike-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.like-dislike-buttons button {
+  padding: 8px 16px;
+  border: none;
+  background: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.like-dislike-buttons button:hover {
+  background: #ddd;
 }
 
 .post-content {
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #e5e7eb;
-  white-space: pre-line;
+  line-height: 1.7;
+  margin: 2rem 0;
 }
 
-.code-snippet {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: #111827;
-  border-radius: 8px;
+.comments-section {
+  margin-top: 3rem;
 }
 
-.code-snippet h2 {
-  font-size: 1.5rem;
+.comments-section h3 {
   margin-bottom: 1rem;
-  color: #3b82f6;
 }
 
-.code-snippet pre {
-  background-color: #1f2937;
-  padding: 1rem;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: 'Courier New', Courier, monospace;
-  color: #f1f5f9;
+.comments-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.comments-section li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.comments-section textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem;
   font-size: 1rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-/* Loading and Error States */
-.loading {
-  font-size: 2rem;
-  text-align: center;
-  color: #94a3b8;
+.comments-section button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.Postnot {
+.comments-section button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.loading,
+.error-message {
   text-align: center;
-  font-size: 1.5rem;
-  color: #f1f5f9;
-  padding: 2rem;
+  font-size: 1.2rem;
+  margin: 2rem 0;
 }

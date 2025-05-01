@@ -41,16 +41,6 @@ const SinglePage = () => {
     }
   };
 
-
-
-  if (loading) return <div className="loading">Loading…</div>;
-  if (error) return <div className="error-message">{error}</div>;
-  if (!post) return <div className="error-message">Post not found</div>;
-
-  // Format dates
-  const created = new Date(post.date).toLocaleString('en-US', dateOpts);
-  const updated = new Date(post.updatedAt).toLocaleString('en-US', dateOpts);
-
   const handleLike = async () => {
     await fetch(`http://localhost:3000/api/posts/${id}/like`, { method: 'POST' });
     setPost(prev => ({ ...prev, likes: prev.likes + 1 }));
@@ -63,10 +53,27 @@ const SinglePage = () => {
   };
 
   const fetchComments = async () => {
-    const res = await fetch(`http://localhost:3000/api/posts/${id}/comments`);
-    const data = await res.json();
-    setComments(data);
+    try {
+      const res = await fetch(`http://localhost:3000/api/posts/${id}/comments`);
+      if (!res.ok) throw new Error('Failed to fetch comments');
+      const data = await res.json();
+      setComments(data);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
+
+
+
+  if (loading) return <div className="loading">Loading…</div>;
+  if (error) return <div className="error-message">{error}</div>;
+  if (!post) return <div className="error-message">Post not found</div>;
+
+  // Format dates
+  const created = new Date(post.date).toLocaleString('en-US', dateOpts);
+  const updated = new Date(post.updatedAt).toLocaleString('en-US', dateOpts);
+
+
 
   const handleAddComment = async () => {
     await fetch(`http://localhost:3000/api/posts/${id}/comments`, {
@@ -107,8 +114,8 @@ const SinglePage = () => {
       <div className="comments-section">
         <h3>Comments</h3>
         <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>{comment.content}</li>
+          {comments.map((comment, index) => (
+            <li key={comment.id || index}>{comment.content}</li>
           ))}
         </ul>
 
