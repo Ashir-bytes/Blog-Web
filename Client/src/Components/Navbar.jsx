@@ -37,6 +37,9 @@ const Navbar = () => {
         </Link>
 
         {/* Sign Up and Login links */}
+        <Link to="/Signup" className="navbar-link">
+          Sign up
+        </Link>
         <Link to="/login" className="navbar-link">
           Login
         </Link>

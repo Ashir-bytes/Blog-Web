@@ -3,6 +3,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/data');
+const verifyToken = require('../Middleware/authMiddleware');
 require('dotenv').config();  // To load the secret key from .env
 
 const router = express.Router();
@@ -76,46 +77,14 @@ router.post('/login', (req, res) => {
     });
 });
 
-// Protecting routes (example for getting the user profile)
-const authenticate = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
-
-    if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided' });
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        req.user = decoded; // Attach user data to the request
-        next(); // Proceed to the next middleware or route handler
-    } catch (err) {
-        res.status(400).json({ message: 'Invalid token' });
-    }
-};
-
-// Example protected route
-router.get('/profile', authenticate, (req, res) => {
-    const userId = req.user.id;
-
-    const sql = 'SELECT id, username, email FROM users WHERE id = ?';
-    db.query(sql, [userId], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(404).json({ message: 'User not found' });
-
-        res.json(results[0]);
+// GET user profile
+router.get('/me', verifyToken, (req, res) => {
+    const sql = 'SELECT id, username, email, createdAt FROM users WHERE id = ?';
+    db.query(sql, [req.user.id], (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (results.length === 0) return res.status(404).json({ message: 'User not found' });
+  
+      res.json(results[0]);
     });
-});
-
-
-router.get('/me', authenticate, (req, res) => {
-    const userId = req.user.id;
-    const sql = 'SELECT id, username, email, created_at FROM users WHERE id = ?';
-    db.query(sql, [userId], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(404).json({ message: 'User not found' });
-
-        res.json(results[0]);
-    });
-});
-
+  });
 module.exports = router;
