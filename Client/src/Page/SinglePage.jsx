@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CodePanel from '../Components/CodePanel';
 import './SinglePage.css';
 
 const SinglePage = () => {
@@ -9,56 +8,40 @@ const SinglePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Date formatting options
+  const dateOpts = {
+    year:   'numeric',
+    month:  'long',
+    day:    'numeric',
+    hour:   '2-digit',
+    minute: '2-digit',
+    hour12: false
+  };
+
   useEffect(() => {
-    const fetchPostData = async () => {
+    const fetchPost = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/posts.json');
-        
-        // Log the full response
-        const text = await response.text();
-        console.log('Response:', text);  // Log the response body to see what is returned
-  
-        if (!response.ok) {
-          throw new Error('Post not found');
-        }
-  
-        // Check if the response is JSON
-        const contentType = response.headers.get('Content-Type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Expected JSON response, but got something else');
-        }
-  
-        const data = JSON.parse(text);  // Manually parse if response was text
-        const post = data.posts.find((post) => post.id === parseInt(id));
-        setPost(post);
+        const res = await fetch(`http://localhost:3000/api/posts/${id}`);
+        if (!res.ok) throw new Error('Post not found');
+        const data = await res.json();
+        setPost(data);
       } catch (err) {
-        console.error('Error fetching data:', err);  // Log detailed error for debugging
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-  
-    fetchPostData();
-  }, [id]); // Re-fetch data when `id` changes
-  
+    fetchPost();
+  }, [id]);
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
+  if (loading) return <div className="loading">Loading…</div>;
+  if (error)   return <div className="error-message">{error}</div>;
+  if (!post)   return <div className="error-message">Post not found</div>;
 
-  if (error) {
-    return (
-      <div className="Postnot">
-        <p>{error}</p>
-      </div>
-    );
-  }
-
-  if (!post) {
-    return <div className="Postnot">Post not found</div>;
-  }
+  // Format dates
+  const created = new Date(post.date).toLocaleString('en-US', dateOpts);
+  const updated = new Date(post.updatedAt).toLocaleString('en-US', dateOpts);
 
   return (
     <div className="single-post-page">
@@ -66,17 +49,15 @@ const SinglePage = () => {
         <img src={post.image} alt={post.title} className="post-image" />
         <h1>{post.title}</h1>
         <p className="post-meta">
-          <span className="author">{post.author}</span> | {post.date} | Updated on {post.updatedAt}
+          <span className="author">{post.author}</span> | {created} | Updated on {updated}
         </p>
         <p className="overview">{post.overview}</p>
       </div>
 
-      <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
-
-      <div className="code-snippet">
-        <h2>Code Example:</h2>
-        <CodePanel code={post.code} language={post.language} />
-      </div>
+      <div
+        className="post-content"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
     </div>
   );
 };

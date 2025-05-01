@@ -13,9 +13,11 @@ const Card = ({ id, title, description, image, date }) => {
         <p className="card-description">{description}</p>
         <div className="card-footer">
           <span className="card-date">{date}</span>
+
           <Link to={`/post/${id}`} className="card-link">
             Read More <FaArrowRight className="card-icon" />
           </Link>
+
         </div>
       </div>
     </div>

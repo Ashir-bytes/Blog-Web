@@ -1,66 +1,77 @@
 import React, { useState } from 'react';
-import './Login.css';  // Add your custom CSS file
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic form validation
+    setErrorMessage('');
     if (!email || !password) {
-      setErrorMessage('Email and password are required');
+      setErrorMessage('Both email and password are required');
       return;
     }
-
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const res = await fetch('http://localhost:5000/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccessMessage('Login Successful');
-        setErrorMessage(''); // Clear any previous error message
-        // Optionally, store login status in localStorage or cookies
+      const data = await res.json();
+      if (res.ok) {
+        setSuccessMessage('Login successful!');
+        setErrorMessage('');
       } else {
-        setErrorMessage(data.message); // Show backend error message
+        setErrorMessage(data.message || 'Login failed');
       }
-    } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+    } catch {
+      setErrorMessage('Network error, please try again');
     }
   };
 
   return (
-    <div className="login">
-      <h2>Login</h2>
+    <div className="login-container">
+      <form
+        className={`login-box ${errorMessage ? 'shake' : ''}`}
+        onSubmit={handleSubmit}
+      >
+        <h2>Sign In</h2>
 
-      {/* Displaying success or error messages */}
-      {errorMessage && <p className="error">{errorMessage}</p>}
-      {successMessage && <p className="success">{successMessage}</p>}
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {successMessage && <p className="success">{successMessage}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
+        <div className="field">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+        </div>
+
+        <div className="field password-field">
+          <input
+            type={showPass ? 'text' : 'password'}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <span
+            className="toggle-pass"
+            onClick={() => setShowPass(v => !v)}
+          >
+            {showPass ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+
+        <button type="submit" className="btn">
+          Login
+        </button>
       </form>
     </div>
   );
