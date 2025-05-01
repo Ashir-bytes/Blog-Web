@@ -2,11 +2,11 @@ import React from 'react';
 import './Home.css';
 import Card from '../Components/Card';
 import Question from '../Components/Question';
-
+import Hero from '../Components/Hero';
 function Home() {
   return (
     <div className="home-container">
-
+      <Hero />
       {/* Featured Posts Section */}
       <section className="featured-posts">
         <h2>Featured Posts</h2>

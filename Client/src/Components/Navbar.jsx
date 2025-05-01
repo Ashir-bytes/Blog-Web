@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,9 +37,7 @@ const Navbar = () => {
         </Link>
 
         {/* Sign Up and Login links */}
-        <Link to="/sign-up" className="navbar-link">
-          Sign Up
-        </Link>
+        
         <Link to="/login" className="navbar-link">
           Login
         </Link>

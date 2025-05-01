@@ -1,42 +1,41 @@
-import React, { useState } from "react";
-import "./Login.css"; // Add your CSS file
+import React, { useState } from 'react';
+import './Login.css';  // Add your custom CSS file
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // To handle error messages
-  const [successMessage, setSuccessMessage] = useState(""); // To handle success messages
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate the form inputs (basic validation)
+
+    // Basic form validation
     if (!email || !password) {
-      setErrorMessage("Email and password are required");
+      setErrorMessage('Email and password are required');
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }), // Send the email and password to the backend
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccessMessage("Login Successful");
-        setErrorMessage(""); // Clear any error message
-        // You can store the login status in localStorage or cookies here, if needed
+        setSuccessMessage('Login Successful');
+        setErrorMessage(''); // Clear any previous error message
+        // Optionally, store login status in localStorage or cookies
       } else {
-        setErrorMessage(data.message); // Show the error message from the backend
+        setErrorMessage(data.message); // Show backend error message
       }
-    // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage('An error occurred. Please try again.');
     }
   };
 
@@ -44,7 +43,7 @@ const Login = () => {
     <div className="login">
       <h2>Login</h2>
 
-      {/* Displaying messages */}
+      {/* Displaying success or error messages */}
       {errorMessage && <p className="error">{errorMessage}</p>}
       {successMessage && <p className="success">{successMessage}</p>}
 
