@@ -5,17 +5,13 @@ const db = require('./config/data.js');
 const rankedRouter = require('./Routers/ranked.js');
 const commentsRouter = require('./Routers/comments.js');
 const userRoutes = require('./Routers/users.js');
+const contact = require('./Routers/contact.js');
 require('dotenv').config();
 
 
 const app = express();
 // Allow only your frontend URL
-const corsOptions = {
-    origin: 'http://localhost:3001',  // Change this to match your frontend's URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow necessary methods
-    credentials: true,  // If you are using cookies or sessions, enable credentials
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 const port = 3000;
 
@@ -49,7 +45,8 @@ app.use('/api/posts/ranked', rankedRouter);
 app.use('/api/posts', commentsRouter);
 //  User authentication routes
 app.use('/api/users', userRoutes);
-// Middleware to parse JSON bodies
+// use the contact router for handling contact form submissions
+app.use('/api/contact', contact);
 
 // Start the server
 app.listen(port, () => {
