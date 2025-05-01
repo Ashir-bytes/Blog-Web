@@ -28,6 +28,7 @@ const Login = () => {
         setErrorMessage(data.message || 'Invalid credentials');
         return;
       }
+      
       if (res.ok) {
         setSuccessMessage('Login successful!');
         setErrorMessage('');

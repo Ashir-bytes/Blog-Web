@@ -8,9 +8,11 @@ require('dotenv').config();  // To load the secret key from .env
 
 const router = express.Router();
 
-router.use(cors());
+
 router.use(express.json());
 
+// Middleware to parse JSON bodies
+// Middleware to handle CORS
 // Register Route
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -77,14 +79,23 @@ router.post('/login', (req, res) => {
     });
 });
 
-// GET user profile
+// Route to fetch user profile using JWT token
 router.get('/me', verifyToken, (req, res) => {
     const sql = 'SELECT id, username, email, createdAt FROM users WHERE id = ?';
     db.query(sql, [req.user.id], (err, results) => {
       if (err) return res.status(500).json({ error: err.message });
       if (results.length === 0) return res.status(404).json({ message: 'User not found' });
-  
-      res.json(results[0]);
+      
+      // Example: send background image URL or color
+      const profileData = {
+        ...results[0],
+        backgroundColor: '#f7f7f7', // Background color for the profile page
+        backgroundImage: 'https://example.com/background.jpg', // Background image URL (optional)
+      };
+
+      res.json(profileData);
     });
-  });
+});
+
+
 module.exports = router;

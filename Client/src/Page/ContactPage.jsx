@@ -18,9 +18,26 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    try {
+      const res = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        console.log(data.message);
+        setSubmitted(true);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert('Network error. Please try again.');
+    }
   };
 
   return (
