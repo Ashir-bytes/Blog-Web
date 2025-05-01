@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const mysql = require('mysql2');
 const db = require('./config/data.js');
+const rankedRouter  = require('./Routers/ranked.js');
+const commentsRouter = require('./Routers/comments.js');
 
 
 const app = express();
@@ -32,6 +33,13 @@ app.get('/api/posts', (req, res) => {
     });
   });
   
+
+// Use the ranked router for fetching ranked posts
+app.use('/api/posts/ranked', rankedRouter);
+// Use the comments router for handling comments
+app.use('/api/posts', commentsRouter);
+
+// Middleware to parse JSON bodies
 
 // Start the server
 app.listen(port, () => {

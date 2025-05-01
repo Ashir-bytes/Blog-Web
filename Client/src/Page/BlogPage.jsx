@@ -1,4 +1,3 @@
-// BlogPage.jsx
 import React, { useEffect, useState } from "react";
 import Card from "../Components/Card";
 import "./BlogPage.css";
@@ -32,8 +31,6 @@ const BlogPage = () => {
     fetchPosts();
   }, []); // Run once when component mounts
 
-  
-
   // Pagination logic
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const currentPosts = posts.slice(
@@ -58,19 +55,28 @@ const BlogPage = () => {
     <div className="blog-container">
       <h1 className="blog-title">Latest Posts</h1>
       <div className="blog-posts">
-        {currentPosts.map((post) => (
-          <Card
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            description={post.excerpt || post.overview}
-            image={post.image}
-            date={post.date}
-          />
-        ))}
+        {currentPosts.map((post) => {
+          // Format the date here
+          const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          return (
+            <Card
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              description={post.excerpt || post.overview}
+              image={post.image}
+              date={formattedDate} // Pass formatted date to the Card component
+            />
+          );
+        })}
       </div>
 
-      <div className="pagination">  
+      <div className="pagination">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
