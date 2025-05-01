@@ -10,7 +10,7 @@ function Home() {
   useEffect(() => {
     const fetchTopPosts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/posts/top-ranked');
+        const response = await fetch('http://localhost:3000/api/posts/ranked/top');
         if (!response.ok) {
           throw new Error('Failed to fetch top posts');
         }
@@ -27,20 +27,24 @@ function Home() {
   return (
     <div className="home-container">
       <Hero />
-      
+
       {/* Featured Posts Section */}
       <section className="featured-posts">
         <h2>Featured Posts</h2>
         <div className="card-container">
           {topPosts.length > 0 ? (
             topPosts.map((post) => (
-              <Card 
-                key={post.id} 
-                id={post.id} 
-                title={post.title} 
-                content={post.excerpt} 
-                image={post.image} 
-                date={post.date} 
+              <Card
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                content={post.excerpt}
+                image={post.image}
+                date={<p>{new Date(post.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}</p>}
               />
             ))
           ) : (
