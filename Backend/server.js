@@ -46,7 +46,7 @@ app.use('/api/posts', commentsRouter);
 //  User authentication routes
 app.use('/api/users', userRoutes);
 // use the contact router for handling contact form submissions
-app.use('/api/contact', contact);
+app.use('/api', contact);
 
 // Start the server
 app.listen(port, () => {
