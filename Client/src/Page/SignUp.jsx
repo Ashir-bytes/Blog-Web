@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate();
+  
   const [email, setEmail] = useState('');
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,6 +39,7 @@ const Signup = () => {
         setEmail('');
         setPassword('');
         setusername('');
+        navigate('/profile'); // Redirect to profile page
       } else {
         setErrorMessage(data.message || 'Registration failed');
       }

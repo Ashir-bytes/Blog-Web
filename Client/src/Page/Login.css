@@ -1,160 +1,103 @@
-/* container centers form vertically & horizontally */
+/* login.css */
+
 .login-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 90vh;
-  /* background: #121212; */
-  padding: 1rem;
-  font-family: sans-serif;
+  align-items: center;
+  min-height: 100vh;
+  /* background-color: #f4f4f4; */
+  font-family: Arial, sans-serif;
 }
 
 .login-box {
-  background: transparent;
-  padding: 2.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-  width: 100%;
-  max-width: 360px;
-  position: relative;
-  transition: transform 0.3s ease;
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  transition: all 0.3s ease;
 }
 
 .login-box h2 {
-  margin: 0 0 1.5rem;
-  color: #60a5fa;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .field {
-  position: relative;
-  margin-bottom: 1.2rem;
+  margin-bottom: 20px;
 }
 
-.field input {
+input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: #3b82f6;
-  border: 1px solid #444;
-  border-radius: 6px;
-  color: #e0e0e0;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.field input:focus {
+input:focus {
+  border-color: #4CAF50;
   outline: none;
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
 }
 
-/* password toggle */
 .password-field {
-  display: flex;
-  align-items: center;
+  position: relative;
 }
 
 .toggle-pass {
   position: absolute;
-  right: 1rem;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
-  color: #94a3b8;
   cursor: pointer;
-  transition: color 0.3s;
+  font-size: 1.2rem;
+  color: #aaa;
 }
 
-.toggle-pass:hover {
-  color: #60a5fa;
-}
-
-
-/* Placeholder text color */
-.login-box input::placeholder {
-  color: #ffffff;
-  opacity: 1;
-  /* keep it fully opaque */
-}
-
-/* for cross-browser support */
-.login-box input::-webkit-input-placeholder {
-  color: #ffffff;
-}
-
-.login-box input::-moz-placeholder {
-  color: #ffffff;
-}
-
-.login-box input:-ms-input-placeholder {
-  color: #ffffff;
-}
-
-.login-box input:-moz-placeholder {
-  color: #ffffff;
-}
-
-/* gradient button */
-.btn {
-  width: 100%;
-  padding: 0.75rem;
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 1.05rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.3s;
-  margin-top: 0.5rem;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.5);
-}
-
-.btn:active {
-  transform: translateY(1px) scale(0.98);
-}
-
-/* error & success */
-.error,
-.success {
+.error, .success {
   text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
 }
 
 .error {
-  background: #f87171;
-  color: #b91c1c;
+  color: red;
 }
 
 .success {
-  background: #34d399;
-  color: #064e3b;
-}
-
-/* shake animation for error */
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  20%,
-  60% {
-    transform: translateX(-8px);
-  }
-
-  40%,
-  80% {
-    transform: translateX(8px);
-  }
+  color: green;
 }
 
 .shake {
-  animation: shake 0.4s ease-in-out;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

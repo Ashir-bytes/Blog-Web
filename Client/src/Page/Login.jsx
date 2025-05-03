@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(true); // Set loading state to true when the form is submitted
+
+    // Basic form validation
     if (!email || !password) {
       setErrorMessage('Both email and password are required');
+      setLoading(false);
       return;
     }
+
+    // Email format validation (basic)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch('http://localhost:3000/api/users/login', {
         method: 'POST',
@@ -24,19 +41,22 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
+
       if (res.status === 401) {
         setErrorMessage(data.message || 'Invalid credentials');
-        return;
-      }
-      
-      if (res.ok) {
+      } else if (res.ok) {
+        localStorage.setItem('token', data.user.token); // <-- save token
         setSuccessMessage('Login successful!');
-        setErrorMessage('');
+        setEmail(''); // Reset form fields
+        setPassword('');
+        navigate('/profile'); // Redirect to profile page
       } else {
         setErrorMessage(data.message || 'Login failed');
       }
-    } catch {
+    } catch (err) {
       setErrorMessage('Network error, please try again');
+    } finally {
+      setLoading(false); // Set loading to false when the request is done
     }
   };
 
@@ -55,8 +75,8 @@ const Login = () => {
           <input
             type="email"
             value={email}
-            name='email'
-            onChange={e => setEmail(e.target.value)}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
         </div>
@@ -65,20 +85,20 @@ const Login = () => {
           <input
             type={showPass ? 'text' : 'password'}
             value={password}
-            name='password'
-            onChange={e => setPassword(e.target.value)}
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
           <span
             className="toggle-pass"
-            onClick={() => setShowPass(v => !v)}
+            onClick={() => setShowPass((v) => !v)}
           >
             {showPass ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
 
-        <button type="submit" className="btn">
-          Login
+        <button type="submit" className="btn" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
     </div>

@@ -6,7 +6,10 @@ const db = require('../config/data');
 const verifyToken = require('../Middleware/authMiddleware');
 require('dotenv').config();  // To load the secret key from .env
 
+
+
 const router = express.Router();
+
 
 
 router.use(express.json());
@@ -56,46 +59,77 @@ router.post('/register', async (req, res) => {
 });
 
 // Login Route
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
+    // Validate input
     if (!email || !password) {
         return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    const sql = 'SELECT * FROM users WHERE email = ?';
-    db.query(sql, [email], async (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(401).json({ message: 'User not found' });
+    try {
+        // Query to find user by email
+        const sql = 'SELECT * FROM users WHERE email = ?';
+        const [results] = await db.promise().query(sql, [email]);
+
+        if (results.length === 0) {
+            return res.status(401).json({ message: 'User not found' });
+        }
 
         const user = results[0];
-        const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) return res.status(401).json({ message: 'Invalid credentials' });
 
-        // Generate JWT
+        // Check if the password is valid
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT token
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
 
-        res.json({ message: 'Login successful', token });
-    });
+        // Send the token and user data (without password) as response
+        const userResponse = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            createdAt: user.createdAt,
+            token: token
+        };
+
+        res.json({ message: 'Login successful', user: userResponse });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
+
+
 
 // Route to fetch user profile using JWT token
-router.get('/me', verifyToken, (req, res) => {
-    const sql = 'SELECT id, username, email, createdAt FROM users WHERE id = ?';
-    db.query(sql, [req.user.id], (err, results) => {
-      if (err) return res.status(500).json({ error: err.message });
-      if (results.length === 0) return res.status(404).json({ message: 'User not found' });
-      
-      // Example: send background image URL or color
+router.get('/me', verifyToken, async (req, res) => {
+    console.log('Decoded token payload:', req.user); // 👈 check this
+  
+    try {
+      const sql = 'SELECT id, username, email, createdAt FROM users WHERE id = ?';
+      const [results] = await db.promise().query(sql, [req.user.id]);
+  
+      if (results.length === 0)
+        return res.status(404).json({ message: 'User not found' });
+  
       const profileData = {
-        ...results[0],
-        backgroundColor: '#f7f7f7', // Background color for the profile page
-        backgroundImage: 'https://example.com/background.jpg', // Background image URL (optional)
+        id: results[0].id,
+        username: results[0].username,
+        email: results[0].email,
+        createdAt: results[0].createdAt,
       };
-
+  
       res.json(profileData);
-    });
-});
+    } catch (err) {
+      console.error('Error in /me route:', err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+  
 
 
 module.exports = router;

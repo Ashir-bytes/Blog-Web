@@ -23,6 +23,20 @@
   letter-spacing: 1px;
 }
 
+
+.nav-logo a img {
+  color: #f9fafb;
+  width: 150px; /* Adjust the width as needed */
+  filter: saturate(0) brightness(0) invert(1);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-logo a img :hover {
+  filter: none; /* Remove the filter on hover */
+  transition: all 0.3s ease;
+}
 .nav-links {
   display: flex;
   align-items: center;

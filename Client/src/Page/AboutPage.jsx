@@ -30,7 +30,7 @@ const AboutPage = () => {
         </div>
         <div className="about-content fade-up">
           <p>
-            Welcome to MyBlog! This blog is a place where we share insightful articles
+            Welcome to BlogBytes! This blog is a place where we share insightful articles
             about web development, technology, and all things coding. Whether you're a
             beginner or an experienced developer, you'll find resources, tutorials, and
             stories to help you grow in your coding journey.
@@ -51,7 +51,7 @@ const AboutPage = () => {
             />
           </div>
           <p>
-            Hi, I'm Ashir, the creator of MyBlog. I'm passionate about full-stack
+            Hi, I'm Ashir, the creator of BlogBytes. I'm passionate about full-stack
             development, and this blog is my way of sharing my experiences and helping
             others on their learning path. Feel free to reach out if you have any questions
             or need help!

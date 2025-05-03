@@ -19,7 +19,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-logo">
-        <Link to="/">MyBlog</Link> {/* Linking to home page */}
+        {/* <Link to="/">BlogBytes</Link> Linking to home page */}
+        <Link to="/"> <img src="logo.png"></img> </Link> {/* Linking to home page */}
       </div>
 
       <div className={`nav-links ${isOpen ? "active" : ""}`}>
