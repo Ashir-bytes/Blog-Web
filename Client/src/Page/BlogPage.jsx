@@ -9,6 +9,7 @@ const BlogPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,6 +22,7 @@ const BlogPage = () => {
 
         const data = await response.json();
         setPosts(data);
+        setTotalPages(Math.ceil(data.length / POSTS_PER_PAGE)); // Calculate total pages after data is fetched
       } catch (err) {
         setError(err.message);
       } finally {
@@ -32,7 +34,6 @@ const BlogPage = () => {
   }, []); // Run once when component mounts
 
   // Pagination logic
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const currentPosts = posts.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
     currentPage * POSTS_PER_PAGE

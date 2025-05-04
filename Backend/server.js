@@ -1,11 +1,15 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const bodyparser = require('body-parser');
+
 const db = require('./config/data.js');
 const rankedRouter = require('./Routers/ranked.js');
 const commentsRouter = require('./Routers/comments.js');
 const userRoutes = require('./Routers/users.js');
 const contact = require('./Routers/contact.js');
+const posts = require('./Routers/posts.js');
+const admin = require('./Routers/admin.js');
 require('dotenv').config();
 
 
@@ -13,10 +17,16 @@ const app = express();
 // Allow only your frontend URL
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyparser.json());
 const port = 3000;
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+});
 
 // Example API endpoint returning JSON
 app.get('/api/posts', (req, res) => {
@@ -47,6 +57,11 @@ app.use('/api/posts', commentsRouter);
 app.use('/api/users', userRoutes);
 // use the contact router for handling contact form submissions
 app.use('/api', contact);
+// Use the posts router for handling posts
+app.use("/api/posts", posts);
+// Use the admin router for handling admin actions
+app.use('/api/admin', admin);
+
 
 // Start the server
 app.listen(port, () => {

@@ -56,7 +56,9 @@ const UserProfile = () => {
   if (errorMessage) {
     return (
       <div className="user-profile-page error-container">
-        <h1>Error</h1>
+        <h1>
+          {setErrorMessage === 'No token found, please log in.' && 'Please Log In' }
+        </h1>
         <p className="error-message">{errorMessage}</p>
         <Link to="/login" className="edit-button">Go to Login</Link>
       </div>

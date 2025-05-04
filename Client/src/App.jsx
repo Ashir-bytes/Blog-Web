@@ -14,6 +14,8 @@ import Login from "./Page/Login"
 import "./index.css"
 import Signup from "./Page/SignUp"
 import UserProfile from "./Page/Userprofile"
+import Admin from "./Page/Admin"
+import AddPost from "./Page/AddPost"
 
 
 
@@ -35,6 +37,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/profile" element={<UserProfile />} />
+          {/* Admin */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/add" component={<AddPost /> } />
          
         </Routes>
       </Router>

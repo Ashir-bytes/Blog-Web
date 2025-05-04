@@ -1,5 +1,4 @@
-/* Navbar.css */
-
+/* Navbar Styles */
 .navbar {
   display: flex;
   align-items: center;
@@ -8,40 +7,22 @@
   padding: 1rem 2rem;
   color: #f9fafb;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid #1f2937;
   position: sticky;
   top: 0;
   z-index: 999;
   transition: all 0.3s ease;
 }
 
-.nav-logo a {
-  color: #f9fafb;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-
-
 .nav-logo a img {
-  color: #f9fafb;
-  width: 150px; /* Adjust the width as needed */
+  width: 140px;
   filter: saturate(0) brightness(0) invert(1);
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 1px;
 }
 
-.nav-logo a img :hover {
-  filter: none; /* Remove the filter on hover */
-  transition: all 0.3s ease;
-}
+/* Nav Links */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  text-decoration: none;
+  gap: 1.2rem;
 }
 
 .navbar-link {
@@ -57,20 +38,20 @@
 .navbar-link:hover {
   background-color: #1f2937;
   color: #f9fafb;
-  padding: 10px 30px;
-  text-decoration: none;
-  /* <-- Add this */
+  padding: 10px 25px;
 }
 
+/* Search Container */
 .search-container {
-  margin-left: 1rem;
-}
-
-.search-container {
+  display: flex;
+  align-items: center;
   margin-left: 1rem;
   position: relative;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
 }
 
+/* Search Input */
 .search-bar {
   padding: 0.5rem 0.8rem;
   padding-left: 2.5rem;
@@ -79,21 +60,23 @@
   outline: none;
   background-color: #1f2937;
   color: #f9fafb;
-  transition: all 0.3s ease;
   font-size: 0.95rem;
+  transition: all 0.3s ease;
+  max-width: 220px;
+  width: 100%;
 }
 
 .search-bar::placeholder {
   color: #9ca3af;
-  transition: all 0.3s ease;
 }
 
 .search-bar:focus {
   background-color: #374151;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
+/* Search Icon inside Input */
 .search-container::before {
   content: "🔍";
   position: absolute;
@@ -105,6 +88,75 @@
   pointer-events: none;
 }
 
+/* Search Button */
+.search-btn {
+  padding: 0.5rem 0.8rem;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Search Results Dropdown */
+.search-results {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #1f2937;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  padding: 0.5rem 0;
+}
+
+.search-result-item {
+  padding: 0.7rem 1rem;
+  color: #f9fafb;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #374151;
+  display: block;
+  text-decoration: none;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+/* User Icon */
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.user-icon a {
+  color: #f9fafb;
+  text-decoration: none;
+}
+
+.user-icon a:hover {
+  color: #007bff;
+}
+
+/* Hamburger Menu */
 .menu-icon {
   display: none;
   flex-direction: column;
@@ -121,26 +173,16 @@
 }
 
 
-.user-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 20px;
-  /* Adjust the space as needed */
-}
-
-.user-icon a {
-  color: #333;
-  /* Set the icon color */
-  text-decoration: none;
-}
-
-.user-icon a:hover {
+/* Add this CSS for the loading spinner */
+.loading-spinner {
+  font-size: 1.2rem;
   color: #007bff;
-  /* Change color on hover */
+  text-align: center;
 }
 
-/* Mobile Responsive */
+
+
+/* Tablet & Mobile Responsive */
 @media screen and (max-width: 1024px) {
   .nav-links {
     position: absolute;
@@ -149,34 +191,72 @@
     background-color: #111827;
     flex-direction: column;
     align-items: flex-start;
-    width: 60vh;
+    width: 65vw;
     height: 100vh;
-    padding: 1.2rem;
+    padding: 1.5rem;
     display: none;
-    transition: all 1s ease;
     border-radius: 0 0 0 12px;
   }
 
   .nav-links.active {
     display: flex;
-    justify-content: start ;
-    align-items: self-start;
-    transition: all 0.5s ease;
-    
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin: 0.8rem 0;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-btn {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .search-results {
+    position: static;
+    width: 100%;
+    max-height: 250px;
   }
 
   .menu-icon {
     display: flex;
   }
+}
 
-  .search-container {
-    width: 100%;
-    margin-top: 0.8rem;
-    align-self: center;
+/* Small Phones */
+@media screen and (max-width: 480px) {
+  .nav-logo a img {
+    width: 120px;
+  }
+
+  .navbar-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.7rem;
   }
 
   .search-bar {
-    width: 100%;
-    
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+    padding-left: 2.3rem;
+  }
+
+  .search-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .search-container::before {
+    font-size: 0.9rem;
+    left: 0.6rem;
+  }
+
+  .search-results {
+    max-height: 200px;
   }
 }

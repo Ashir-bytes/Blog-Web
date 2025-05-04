@@ -1,0 +1,95 @@
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.admin-actions {
+  margin-bottom: 1rem;
+}
+
+.add-post-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: #4caf50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.add-post-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+.admin-table th{
+  background-color: #f2f2f2;
+  color: #2196f3;
+  font-weight: bold;
+  text-align: left;
+  padding: 0.8rem;
+  border-bottom: 2px solid #ddd;
+}
+.admin-table th,
+.admin-table td {
+  /* border: 2px solid #ddd;   */
+  padding: 0.8rem;
+  text-align: left;
+}
+
+/* Row hover animation */
+.admin-table tbody tr {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f5f5f5;
+  transform: translateX(4px);
+}
+.action-buttons{
+  display: flex;
+  gap: 1rem;
+}
+/* Active row styling */
+.active-row {
+  background-color: #e0f7fa !important;
+  transform: none !important;
+}
+
+/* Edit/Delete button styles with hover animation */
+.edit-btn,
+.delete-btn {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+}
+
+.edit-btn:hover {
+  color: #fff;
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.delete-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
