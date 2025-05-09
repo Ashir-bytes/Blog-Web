@@ -29,25 +29,29 @@ app.get('/', (req, res) => {
 });
 
 // Example API endpoint returning JSON
-app.get('/api/posts', (req, res) => {
-    const sql = 'SELECT * FROM posts';
-    db.query(sql, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
-});
+app.get('/api/posts', async (req, res) => {
+    try {
+      const [results] = await db.query('SELECT * FROM posts');
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
 
-
-app.get('/api/posts/:id', (req, res) => {
+  app.get('/api/posts/:id', async (req, res) => {
     const postId = req.params.id;
-    const sql = 'SELECT * FROM posts WHERE id = ?';
-    db.query(sql, [postId], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(404).json({ message: 'Post not found' });
-        res.json(results[0]);
-    });
-});
-
+    try {
+      const [results] = await db.query('SELECT * FROM posts WHERE id = ?', [postId]);
+      if (results.length === 0) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+      res.json(results[0]);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
 
 // Use the ranked router for fetching ranked posts
 app.use('/api/posts/ranked', rankedRouter);

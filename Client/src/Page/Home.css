@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
+  background-color: #f4f8fb; /* Soft light background */
   color: #333;
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 .hero-button {
-  background-color: #3a8dff;
+  background-color: #3498db; /* Blue shade */
   color: white;
   padding: 10px 20px;
   font-size: 1.2em;
@@ -48,7 +48,7 @@ body {
 }
 
 .hero-button:hover {
-  background-color: #007bff;
+  background-color: #2980b9; /* Darker blue shade on hover */
 }
 
 /* Featured Posts Section */
@@ -60,7 +60,7 @@ body {
 
 .featured-posts h2 {
   font-size: 2.5em;
-  color: #f7f7f7;
+  color: #2c3e50; /* Dark grey-blue */
   margin-bottom: 30px;
   text-align: center;
 }
@@ -72,6 +72,16 @@ body {
   gap: 30px;
   margin-top: 20px;
 }
+
+/* Card */
+.card {
+  background-color: white;
+  border-radius: 12px; /* Rounded corners */
+  overflow: hidden; /* Prevent content from overflowing */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 
 /* About Section */
 .about-section {
@@ -90,7 +100,7 @@ body {
 .about-section h2 {
   font-size: 5rem;
   color: #ffffff;
-  border-bottom: 2px dashed #007bff;
+  border-bottom: 2px dashed #3498db; /* Blue dashed border */
   margin-bottom: 5px;
   line-height: 80px;
 }
@@ -98,6 +108,20 @@ body {
 .about-section p {
   font-size: 1.2em;
   color: #ffffff;
+}
+
+
+/* Loading and Error States */
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+  color: #3498db;
+}
+
+.error-message {
+  text-align: center;
+  font-size: 1.5em;
+  color: #e74c3c; /* Red color for errors */
 }
 
 
@@ -118,6 +142,4 @@ body {
   .card-content {
     font-size: 14px;
   }
-
-
 }

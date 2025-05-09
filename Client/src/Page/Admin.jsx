@@ -1,37 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./AdminDashboard.css";
 
-const POSTS_PER_PAGE = 5;  // adjust as needed
+const POSTS_PER_PAGE = 10;
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [reload, setReload] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch all posts
-  const fetchPosts = () => {
+  // Fetch posts
+  const fetchPosts = useCallback(() => {
     axios.get("http://localhost:3000/api/admin/posts")
       .then(res => setPosts(res.data))
       .catch(err => console.error("Error fetching posts:", err));
-  };
-
-  useEffect(() => {
-    fetchPosts();
   }, []);
+
+
 
   // Delete post
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
-      axios.delete(`http://localhost:3000/api/admin/posts/${id}`)
+      axios.delete(`http://localhost:3000/api/admin/${id}`)
         .then(() => {
-          fetchPosts();
-          if (activeId === id) setActiveId(null);
+          alert("Post deleted ✅");
+          setReload(prev => !prev); // trigger useEffect to fetch
         })
         .catch(err => console.error("Delete error:", err));
     }
   };
+
+
 
   // Pagination calculation
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
@@ -40,11 +41,22 @@ const AdminDashboard = () => {
     currentPage * POSTS_PER_PAGE
   );
 
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts, reload]);  // run when `reload` changes
+
   const goToPage = (page) => {
     setCurrentPage(page);
     setActiveId(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Reset current page if posts get deleted from last page
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages || 1);
+    }
+  }, [posts, currentPage, totalPages]);
 
   return (
     <div className="admin-dashboard">
@@ -80,7 +92,10 @@ const AdminDashboard = () => {
                   Edit
                 </Link>
                 <button
-                  onClick={() => handleDelete(post.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(post.id);
+                  }}
                   className="delete-btn"
                 >
                   Delete

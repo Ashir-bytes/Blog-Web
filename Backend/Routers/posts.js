@@ -3,16 +3,14 @@ const db = require("../config/data");
 
 const router = express.Router();
 
-
 // Search route
-router.get("/search", (req, res) => {
-  const searchTerm = req.query.query;  // Getting search term from query params
-  
+router.get("/search", async (req, res) => {
+  const searchTerm = req.query.query;
+
   if (!searchTerm) {
     return res.status(400).json({ message: "Search term is required" });
   }
 
-  // SQL query to search for posts by title or content
   const sql = `
     SELECT * FROM posts
     WHERE title LIKE ? OR content LIKE ?
@@ -20,17 +18,15 @@ router.get("/search", (req, res) => {
     LIMIT 20
   `;
   
-  const likeTerm = `%${searchTerm}%`;  // Adding % for partial matching
+  const likeTerm = `%${searchTerm}%`;
 
-  db.query(sql, [likeTerm, likeTerm], (err, results) => {
-    if (err) {
-      console.error("Error executing search query:", err);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-
-    // Send the results as JSON
+  try {
+    const [results] = await db.query(sql, [likeTerm, likeTerm]);
     res.status(200).json(results);
-  });
+  } catch (err) {
+    console.error("Search query error:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 module.exports = router;

@@ -1,0 +1,101 @@
+/* General Styles */
+.edit-post {
+    margin: 3rem auto;
+    padding: 2.5rem;
+    border-radius: 12px;
+    background-color: #1e2a47;
+    /* Dark blue background */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 90%;
+    /* Full width */
+    min-width: 80vw;
+    /* Cap the maximum width */
+}
+
+.edit-post h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #4caf50;
+    /* Accent color (green) */
+}
+
+.edit-post label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #f1f1f1;
+    font-size: 1.1rem;
+}
+
+.edit-post input,
+.edit-post textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #2a3a56;
+    /* Darker background for inputs */
+    color: #f1f1f1;
+    /* Light text */
+}
+
+.edit-post input:focus,
+.edit-post textarea:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+.edit-post button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-post button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.edit-post .error {
+    color: #e74c3c;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .edit-post {
+        padding: 1.5rem;
+    }
+
+    .edit-post h1 {
+        font-size: 2rem;
+    }
+
+    .edit-post label {
+        font-size: 1rem;
+    }
+
+    .edit-post input,
+    .edit-post textarea {
+        font-size: 1rem;
+    }
+
+    .edit-post button {
+        font-size: 1rem;
+    }
+}

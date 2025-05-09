@@ -16,6 +16,7 @@ import Signup from "./Page/SignUp"
 import UserProfile from "./Page/Userprofile"
 import Admin from "./Page/Admin"
 import AddPost from "./Page/AddPost"
+import EditPost from "./Page/EditPost"
 
 
 
@@ -39,7 +40,8 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           {/* Admin */}
           <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/add" component={<AddPost /> } />
+          <Route path="/admin/add" element={<AddPost /> } />
+          <Route path="/admin/edit/:id" element={<EditPost /> } />
          
         </Routes>
       </Router>

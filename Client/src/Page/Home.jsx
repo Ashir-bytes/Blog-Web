@@ -6,6 +6,8 @@ import Hero from '../Components/Hero';
 
 function Home() {
   const [topPosts, setTopPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchTopPosts = async () => {
@@ -15,9 +17,11 @@ function Home() {
           throw new Error('Failed to fetch top posts');
         }
         const data = await response.json();
-        setTopPosts(data); // Set the fetched top posts
+        setTopPosts(data);
+        setLoading(false);
       } catch (err) {
-        console.error(err.message);
+        setError('There was an issue loading the top posts. Please try again later.');
+        setLoading(false);
       }
     };
 
@@ -32,7 +36,11 @@ function Home() {
       <section className="featured-posts">
         <h2>Featured Posts</h2>
         <div className="card-container">
-          {topPosts.length > 0 ? (
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : error ? (
+            <div className="error-message">{error}</div>
+          ) : topPosts.length > 0 ? (
             topPosts.map((post) => (
               <Card
                 key={post.id}
@@ -48,7 +56,7 @@ function Home() {
               />
             ))
           ) : (
-            <p>Loading top posts...</p>
+            <p>No posts available</p>
           )}
         </div>
       </section>
